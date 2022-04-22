@@ -1,0 +1,11 @@
+body { font-family: sans-serif; }
+th { border: 1px solid black; padding: 0.5em; background-color: beige; }
+td { border: 1px solid black; padding: 0.5em; }
+
+button  { border: 0px; padding: 10px; }
+button.remove:hover { border: 0px; padding: 10px; background-color: rgb(255, 124, 105); color: black;}
+button.remove { border: 0px; padding: 10px; background-color: rgb(182, 63, 45); color: white;}
+button.true:hover { border: 0px; padding: 10px; background-color: rgb(124, 255, 105); color: black;}
+button.true { border: 0px; padding: 10px; background-color: rgb(49, 173, 30); color: white;}
+button.false:hover { border: 0px; padding: 10px; background-color: rgb(255, 124, 105); color: black;}
+button.false { border: 0px; padding: 10px; background-color: rgb(182, 63, 45); color: white;}

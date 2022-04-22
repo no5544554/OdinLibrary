@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script type="text/javascript">
+        let myLibrary = [];
+        let currentIdToAdd = 0;
+
+        function Book(bookName, bookAuthor, bookPages, bookRead)
+        {
+            this.bookName = bookName;
+            this.bookAuthor = bookAuthor;
+            this.bookPages = bookPages;
+            this.bookRead = bookRead;
+            this.bookId = currentIdToAdd++;
+
+            this.toggleRead = function()
+            {
+                this.bookRead = !this.bookRead;
+            }
+        }
+
+        function drawTable()
+        {
+            let bookTable = document.getElementById("book_table");
+
+            bookTable.innerHTML = "<tr> \
+            <th>Name</th><th>Author</th><th>Pages</th><th>Read</th><th>Remove</th> \
+            </tr>"
+
+            for (let i = 0; i < myLibrary.length; i++)
+            {
+                readClass = myLibrary[i].bookRead ? "true" : "false";
+                bookTable.innerHTML += "<tr><td>" + myLibrary[i].bookName + "</td>" + 
+                    "<td>" + myLibrary[i].bookAuthor + "</td>"  + 
+                    "<td>" + myLibrary[i].bookPages + "</td>" + 
+                    "<td><button class=\"" + readClass + "\" onclick=toggleReadStatus(" + myLibrary[i].bookId + ")>" + myLibrary[i].bookRead.toString().charAt(0).toUpperCase() + myLibrary[i].bookRead.toString().slice(1) + "</button></td>" + 
+                    "<td><button class=\"remove\" onclick=removeBook(" + myLibrary[i].bookId + ")>Remove</button></td></tr>";
+                    
+            }
+        }
+
+        function addBookToLibrary()
+        {
+            let bookName = document.getElementById("book_name_input").value;
+            let bookAuthor = document.getElementById("book_author_input").value;
+            let bookPages = document.getElementById("book_page_input").value;
+            let bookRead = document.querySelector("#book_read_input").checked;
+
+
+            let newBook = new Book(bookName, bookAuthor, bookPages, bookRead);
+
+            myLibrary.push(newBook);
+
+            drawTable();
+        }
+
+        function removeBook(idToRemove)
+        {
+            for (let i = 0; i < myLibrary.length; i++)
+            {
+                if (myLibrary[i].bookId === idToRemove)
+                {
+                    myLibrary.splice(i, 1);
+                    break;
+                }
+            }
+
+            drawTable();
+        }
+
+        function toggleReadStatus(idToToggle)
+        {
+            for (let i = 0; i < myLibrary.length; i++)
+            {
+                if (myLibrary[i].bookId === idToToggle)
+                {
+                    myLibrary[i].toggleRead();
+                    break;
+                }
+            }
+
+            drawTable();
+        }
+
+    </script>
+</head>
+<body>
+    <form id="newbook">
+        Book Name: <input type="text" id="book_name_input"><br />
+        Book Author: <input type="text" id="book_author_input"><br />
+        Page Count: <input type="number" id="book_page_input"><br />
+        Read: <input type="checkbox" id="book_read_input"><br />
+
+        <input type="button" onclick="addBookToLibrary()" value="Add">
+    </form>
+
+    <table id="book_table">
+        <tr>
+            <th>Name</th><th>Author</th><th>Pages</th><th>Read</th><th>Remove</th>
+        </tr>
+    </table>
+
+
+</body>
+</html>
